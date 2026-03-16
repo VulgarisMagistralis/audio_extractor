@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "audio-extractor"
+version = "0.1.0"
+description = "Download audio at the highest quality from any URL, with GUI and CLI."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "yt-dlp==2026.3.13",
+    "python-dotenv==1.2.2",
+    "requests==2.32.5",
+    "Pillow==12.1.1",
+    "mutagen==1.47.0",
+    "certifi==2026.2.25",
+    "charset-normalizer==3.4.5",
+    "idna==3.11",
+    "urllib3==2.6.3",
+]
+
+[project.scripts]
+audio-extractor = "audio_extractor:main"
+
+[tool.setuptools]
+py-modules = ["audio_extractor"]

@@ -1,0 +1,64 @@
+# Audio Extractor
+
+Download audio at the highest quality from YouTube, SoundCloud, Bandcamp, and 1000+ other sites.
+
+## Install
+
+```bash
+# Clone / cd into the project folder, then:
+pip install -e .
+
+# ffmpeg is also required:
+sudo pacman -S ffmpeg        # Manjaro / Arch
+# or: brew install ffmpeg    # macOS
+# or: sudo apt install ffmpeg
+```
+
+## Usage
+
+```bash
+# Open the GUI (default when no URL given)
+audio-extractor
+audio-extractor --ui
+
+# Headless / CLI
+audio-extractor "https://www.youtube.com/watch?v=..."
+audio-extractor "https://soundcloud.com/artist/track" --format mp3
+audio-extractor "https://..." --output ~/Music --format flac
+```
+
+## Update
+
+Since it's installed in editable mode (`-e`), any edits to `audio_extractor.py`
+take effect immediately — no reinstall needed.
+
+To bump the version and do a clean reinstall:
+
+```bash
+# edit version in pyproject.toml, then:
+pip install -e . --force-reinstall
+```
+
+## Config
+
+Settings (colours, font size, output dir) are saved to:
+```
+~/.config/audio_extractor/settings.json
+```
+
+## Options
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--format`, `-f` | `best` | Output format: best, flac, wav, mp3, aac, opus, m4a, vorbis |
+| `--quality`, `-q` | `0` | Quality for lossy formats (mp3: 0=best…9, aac/opus: kbps) |
+| `--output`, `-o` | `./downloads` | Output directory |
+| `--no-playlist` | on | Download single track, not whole playlist |
+| `--ui` | — | Force open the GUI |
+
+## Environment variables (.env)
+
+```env
+FORMAT=mp3
+OUTPUT_FOLDER=~/Music
+```

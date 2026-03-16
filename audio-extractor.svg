@@ -1,0 +1,39 @@
+<svg width="512" height="512" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
+<style>
+  .bg { fill: #0d0d0d; }
+  .ring1 { fill: none; stroke: #fffb1b; stroke-width: 3; opacity: 0.15; }
+  .ring2 { fill: none; stroke: #fffb1b; stroke-width: 2; opacity: 0.25; }
+  .ring3 { fill: none; stroke: #fffb1b; stroke-width: 1.5; opacity: 0.4; }
+  .bar { fill: #fffb1b; }
+  .bar-dim { fill: #fffb1b; opacity: 0.35; }
+</style>
+<circle cx="340" cy="340" r="300" class="bg"/>
+<circle cx="340" cy="340" r="290" class="ring1"/>
+<circle cx="340" cy="340" r="260" class="ring2"/>
+<circle cx="340" cy="340" r="230" class="ring3"/>
+<circle cx="340" cy="340" r="200" fill="#1a1a1a"/>
+<circle cx="340" cy="340" r="190" fill="none" stroke="#fffb1b" stroke-width="0.5" opacity="0.08"/>
+<circle cx="340" cy="340" r="175" fill="none" stroke="#fffb1b" stroke-width="0.5" opacity="0.08"/>
+<circle cx="340" cy="340" r="160" fill="none" stroke="#fffb1b" stroke-width="0.5" opacity="0.08"/>
+<circle cx="340" cy="340" r="145" fill="none" stroke="#fffb1b" stroke-width="0.5" opacity="0.08"/>
+<circle cx="340" cy="340" r="130" fill="none" stroke="#fffb1b" stroke-width="0.5" opacity="0.08"/>
+<circle cx="340" cy="340" r="115" fill="none" stroke="#fffb1b" stroke-width="0.5" opacity="0.08"/>
+<circle cx="340" cy="340" r="100" fill="#0d0d0d"/>
+<circle cx="340" cy="340" r="98" fill="none" stroke="#fffb1b" stroke-width="1" opacity="0.3"/>
+<circle cx="340" cy="340" r="12" fill="#1a1a1a"/>
+<circle cx="340" cy="340" r="8" fill="#fffb1b" opacity="0.6"/>
+<path d="M340 290 L340 355 M315 330 L340 360 L365 330"
+      fill="none" stroke="#fffb1b" stroke-width="10"
+      stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="310" y1="370" x2="370" y2="370"
+      stroke="#fffb1b" stroke-width="8" stroke-linecap="round"/>
+<rect x="168" y="370" width="12" height="40" rx="3" class="bar"/>
+<rect x="186" y="355" width="12" height="55" rx="3" class="bar-dim"/>
+<rect x="204" y="362" width="12" height="48" rx="3" class="bar"/>
+<rect x="222" y="348" width="12" height="62" rx="3" class="bar-dim"/>
+<rect x="446" y="365" width="12" height="45" rx="3" class="bar-dim"/>
+<rect x="464" y="350" width="12" height="60" rx="3" class="bar"/>
+<rect x="482" y="358" width="12" height="52" rx="3" class="bar-dim"/>
+<rect x="500" y="343" width="12" height="67" rx="3" class="bar"/>
+<circle cx="340" cy="340" r="299" fill="none" stroke="#fffb1b" stroke-width="1.5" opacity="0.5"/>
+</svg>
