@@ -1,0 +1,138 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"          # triggers on: git tag v0.2.0 && git push --tags
+
+permissions:
+  contents: write    # needed to create the GitHub Release
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-22.04   # older distro = wider glibc compat (runs on Arch/Manjaro too)
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y \
+            ffmpeg \
+            python3-tk \
+            python3-dev \
+            libglib2.0-0 \
+            libsm6 \
+            libxrender1 \
+            libxext6
+
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build binary
+        run: |
+          pyinstaller \
+            --onefile \
+            --windowed \
+            --name "audio-extractor" \
+            --icon audio-extractor.svg \
+            --add-data "audio-extractor.svg:." \
+            audio_extractor.py
+
+      - name: Rename with platform tag
+        run: |
+          mv dist/audio-extractor dist/audio-extractor-linux-x86_64
+
+      - name: Create .desktop file
+        run: |
+          cat > dist/audio-extractor.desktop << 'EOF'
+          [Desktop Entry]
+          Name=Audio Extractor
+          Comment=Download audio from YouTube, SoundCloud and more
+          Exec=audio-extractor
+          Icon=audio-extractor
+          Terminal=false
+          Type=Application
+          Categories=AudioVideo;Audio;Network;
+          Keywords=youtube;download;audio;music;
+          EOF
+
+      - name: Create install script
+        run: |
+          cat > dist/install.sh << 'EOF'
+          #!/usr/bin/env bash
+          set -e
+          INSTALL_DIR="$HOME/.local/bin"
+          ICON_DIR="$HOME/.local/share/icons/hicolor/scalable/apps"
+          DESKTOP_DIR="$HOME/.local/share/applications"
+
+          mkdir -p "$INSTALL_DIR" "$ICON_DIR" "$DESKTOP_DIR"
+
+          cp audio-extractor-linux-x86_64 "$INSTALL_DIR/audio-extractor"
+          chmod +x "$INSTALL_DIR/audio-extractor"
+
+          # Copy icon if bundled alongside
+          [ -f audio-extractor.svg ] && cp audio-extractor.svg "$ICON_DIR/audio-extractor.svg"
+
+          # Desktop entry
+          cat > "$DESKTOP_DIR/audio-extractor.desktop" << DESKTOP
+          [Desktop Entry]
+          Name=Audio Extractor
+          Comment=Download audio from YouTube, SoundCloud and more
+          Exec=$INSTALL_DIR/audio-extractor
+          Icon=audio-extractor
+          Terminal=false
+          Type=Application
+          Categories=AudioVideo;Audio;Network;
+          Keywords=youtube;download;audio;music;
+          DESKTOP
+
+          update-desktop-database "$DESKTOP_DIR" 2>/dev/null || true
+          gtk-update-icon-cache "$HOME/.local/share/icons/hicolor" 2>/dev/null || true
+
+          echo "Installed! Run: audio-extractor"
+          echo "Or find it in your app launcher."
+          EOF
+          chmod +x dist/install.sh
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Audio Extractor ${{ github.ref_name }}"
+          body: |
+            ## Install
+
+            ```bash
+            # Download both files, then:
+            chmod +x install.sh
+            ./install.sh
+            ```
+
+            Or manually:
+            ```bash
+            chmod +x audio-extractor-linux-x86_64
+            mv audio-extractor-linux-x86_64 ~/.local/bin/audio-extractor
+            ```
+
+            **Requires ffmpeg:**
+            ```bash
+            sudo pacman -S ffmpeg      # Arch / Manjaro
+            sudo apt install ffmpeg    # Ubuntu / Debian
+            ```
+          files: |
+            dist/audio-extractor-linux-x86_64
+            dist/audio-extractor.desktop
+            dist/install.sh
+            audio-extractor.svg
+          draft: false
+          prerelease: false
