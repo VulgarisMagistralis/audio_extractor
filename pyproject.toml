@@ -24,4 +24,4 @@ dependencies = [
 audio-extractor = "audio_extractor:main"
 
 [tool.setuptools]
-py-modules = ["audio_extractor"]
+packages = ["audio_extractor"]
