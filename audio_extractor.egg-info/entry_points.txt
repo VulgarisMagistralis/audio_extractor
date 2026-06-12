@@ -1,0 +1,2 @@
+[console_scripts]
+audio-extractor = audio_extractor:main

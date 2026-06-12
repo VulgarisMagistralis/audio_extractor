@@ -420,7 +420,7 @@ def run_gui():
                 root.after(0, meta_src_var.set, f"{acodec} @ {abr} kbps")
                 root.after(0, status_var.set, "Ready to download")
                 root.after(0, set_button_fetched)
-
+# todo modify metadata to remove 'offical..'
                 def _set_filename(a=artist, t=title):
                     fn_trace_paused[0] = True
                     filename_var.set(safe_stem(f"{t}"))

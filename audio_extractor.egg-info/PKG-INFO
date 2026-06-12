@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: audio-extractor
+Version: 0.1.0
+Summary: Download audio at the highest quality from any URL, with GUI and CLI.
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: yt-dlp==2026.3.13
+Requires-Dist: python-dotenv==1.2.2
+Requires-Dist: requests==2.32.5
+Requires-Dist: Pillow==12.1.1
+Requires-Dist: mutagen==1.47.0
+Requires-Dist: certifi==2026.2.25
+Requires-Dist: charset-normalizer==3.4.5
+Requires-Dist: idna==3.11
+Requires-Dist: urllib3==2.6.3
